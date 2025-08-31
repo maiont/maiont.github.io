@@ -1,0 +1,834 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <!-- # ตั้งค่า meta, ฟอนต์, ชื่อเว็บ และเชื่อมต่อ Google Fonts -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Portfolio 2025</title>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500&display=swap"
+        rel="stylesheet">
+    <style>
+        /* # กำหนดค่า margin/padding และ box-sizing ให้ทุก element */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        /* # ตัวแปรสีและธีมหลักของเว็บ */
+        :root {
+            --primary: #6366f1;
+            --secondary: #ec4899;
+            --accent: #10b981;
+            --bg-primary: #0a0a0a;
+            --bg-secondary: #1a1a1a;
+            --bg-tertiary: #2a2a2a;
+            --text-primary: #ffffff;
+            --text-secondary: #a1a1aa;
+            --glass: rgba(255, 255, 255, 0.1);
+            --glass-border: rgba(255, 255, 255, 0.2);
+        }
+
+        /* # กำหนดฟอนต์ พื้นหลัง สีตัวอักษร และการแสดงผลของ body */
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-primary);
+            color: var(--text-primary);
+            overflow-x: hidden;
+            line-height: 1.6;
+        }
+
+        /* # สไตล์พื้นหลังแอนิเมชัน */
+        .bg-animation {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: linear-gradient(45deg, #1e1b4b, #312e81, #1e3a8a, #1e40af);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        /* # รูปร่างลอยพื้นหลัง */
+        .floating-shapes {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        .shape {
+            position: absolute;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            opacity: 0.1;
+            animation: float 20s infinite linear;
+        }
+
+        .shape:nth-child(1) {
+            width: 100px;
+            height: 100px;
+            top: 20%;
+            left: 10%;
+            animation-delay: 0s;
+        }
+
+        .shape:nth-child(2) {
+            width: 150px;
+            height: 150px;
+            top: 60%;
+            left: 80%;
+            animation-delay: 5s;
+        }
+
+        .shape:nth-child(3) {
+            width: 80px;
+            height: 80px;
+            top: 40%;
+            left: 60%;
+            animation-delay: 10s;
+        }
+
+        @keyframes float {
+            0% {
+                transform: translateY(0px) rotate(0deg);
+            }
+
+            33% {
+                transform: translateY(-20px) rotate(120deg);
+            }
+
+            66% {
+                transform: translateY(20px) rotate(240deg);
+            }
+
+            100% {
+                transform: translateY(0px) rotate(360deg);
+            }
+        }
+
+        /* # สไตล์ Navbar และเอฟเฟกต์เลื่อน */
+        .navbar {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            z-index: 1000;
+            padding: 1rem 0;
+            backdrop-filter: blur(20px);
+            background: rgba(10, 10, 10, 0.8);
+            border-bottom: 1px solid var(--glass-border);
+            transition: all 0.3s ease;
+        }
+
+        .navbar.scrolled {
+            padding: 0.5rem 0;
+            background: rgba(10, 10, 10, 0.95);
+        }
+
+        .nav-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar-brand {
+            font-size: 1.5rem;
+            font-weight: 700;
+            text-decoration: none;
+            color: var(--text-primary);
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .navbar-menu {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .navbar-menu a {
+            text-decoration: none;
+            color: var(--text-secondary);
+            font-weight: 500;
+            position: relative;
+            transition: color 0.3s ease;
+        }
+
+        .navbar-menu a:hover {
+            color: var(--text-primary);
+        }
+
+        .navbar-menu a::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            transition: width 0.3s ease;
+        }
+
+        .navbar-menu a:hover::after {
+            width: 100%;
+        }
+
+        /* # สไตล์ Header, Section, Card, Button ฯลฯ */
+        .header {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            position: relative;
+        }
+
+        .header-content {
+            max-width: 800px;
+            padding: 0 2rem;
+            animation: fadeInUp 1s ease;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .header h1 {
+            font-size: clamp(2.5rem, 5vw, 4rem);
+            font-weight: 700;
+            margin-bottom: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary), var(--accent));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            animation: textGlow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes textGlow {
+            from {
+                filter: brightness(1);
+            }
+
+            to {
+                filter: brightness(1.2);
+            }
+        }
+
+        .header p {
+            font-size: 1.25rem;
+            color: var(--text-secondary);
+            margin-bottom: 2rem;
+            animation: fadeInUp 1s ease 0.3s both;
+        }
+
+        .btn-main {
+            display: inline-block;
+            padding: 1rem 2rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease 0.6s both;
+        }
+
+        .btn-main::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.3), transparent);
+            transition: left 0.5s;
+        }
+
+        .btn-main:hover::before {
+            left: 100%;
+        }
+
+        .btn-main:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        .section {
+            padding: 5rem 0;
+            position: relative;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .section-title {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 3rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .glass-card {
+            background: var(--glass);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--glass-border);
+            border-radius: 20px;
+            padding: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .glass-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            border-color: rgba(255, 255, 255, 0.3);
+        }
+
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .service-card {
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .service-icon {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover .service-icon {
+            transform: scale(1.1) rotate(10deg);
+        }
+
+        .portfolio-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+
+        .portfolio-card {
+            position: relative;
+            height: 250px;
+            border-radius: 20px;
+            overflow: hidden;
+            cursor: pointer;
+            background: linear-gradient(45deg, var(--bg-secondary), var(--bg-tertiary));
+        }
+
+        .portfolio-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .portfolio-card:hover::before {
+            opacity: 0.8;
+        }
+
+        .portfolio-content {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            padding: 2rem;
+            background: linear-gradient(transparent, rgba(0, 0, 0, 0.8));
+            transform: translateY(100%);
+            transition: transform 0.3s ease;
+        }
+
+        .portfolio-card:hover .portfolio-content {
+            transform: translateY(0);
+        }
+
+        /* # สไตล์ฟอร์มติดต่อ */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-control {
+            width: 100%;
+            padding: 1rem;
+            background: var(--glass);
+            border: 1px solid var(--glass-border);
+            border-radius: 10px;
+            color: var(--text-primary);
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(10px);
+        }
+
+        .form-control:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.1);
+        }
+
+        .form-control::placeholder {
+            color: var(--text-secondary);
+        }
+
+        textarea.form-control {
+            height: 120px;
+            resize: vertical;
+        }
+
+        .btn-submit {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .btn-submit:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(99, 102, 241, 0.4);
+        }
+
+        /* # สไตล์ Footer */
+        .footer {
+            background: var(--bg-secondary);
+            padding: 2rem 0;
+            text-align: center;
+            border-top: 1px solid var(--glass-border);
+        }
+
+        /* # แถบแสดงความคืบหน้าการเลื่อนหน้า */
+        .scroll-indicator {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: var(--bg-secondary);
+            z-index: 9999;
+        }
+
+        .scroll-progress {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* # Responsive สำหรับมือถือ */
+        @media (max-width: 768px) {
+            .navbar-menu {
+                display: none;
+            }
+
+            .services-grid,
+            .portfolio-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .header h1 {
+                font-size: 2.5rem;
+            }
+        }
+
+        /* # แอนิเมชัน fade-in */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: all 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* # สไตล์ particle effect */
+        .particle {
+            position: absolute;
+            pointer-events: none;
+            border-radius: 50%;
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            animation: particle-float 3s linear infinite;
+        }
+
+        @keyframes particle-float {
+            0% {
+                opacity: 1;
+                transform: translateY(0) scale(1);
+            }
+
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(0);
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-animation"></div>
+    <div class="floating-shapes">
+        <div class="shape"></div>
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+
+    <div class="scroll-indicator">
+        <div class="scroll-progress"></div>
+    </div>
+
+    <nav class="navbar">
+        <div class="nav-container">
+            <a class="navbar-brand" href="#"> My Portfolio </a>
+            <ul class="navbar-menu">
+                <li><a href="#about">About</a></li>
+                <li><a href="#services">Services</a></li>
+                <li><a href="#Work">Work</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <header class="header">
+        <div class="header-content">
+            <img src="img/pf1.jpg" alt="Jirawat Khuthongkham" style="width:320px; height:320px; 
+            border-radius:50%; margin-bottom:1rem; box-shadow:0 4px 16px rgba(0,0,0,0.2);">
+            <h1>Jirawat Khuthongkham</h1>
+            <p>Hello there</p>
+            <a href="#services" class="btn-main">Explore My Work & Certificate</a>
+        </div>
+    </header>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">About Me</h2>
+            <div class="glass-card fade-in" style="margin-bottom: 2rem;">
+                <p
+                    style="font-size: 1.5rem; text-align: left; color: var(--text-primary); font-weight: bold; margin-bottom: 1rem;">
+                    ข้อมูลส่วนตัว
+                </p>
+                <p style="font-size: 1.1rem; text-align: left; color: var(--text-secondary); margin-bottom: 0;">
+                    ชื่อ: จิรวัฒน์ คูทองคำ<br>
+                    ชื่อเล่น: ต้น<br>
+                    อายุ: 21 ปี<br>
+                    วันเกิด: 8 กันยายน 2546<br>
+                    อีเมล: jirawat.khut@bumail.net<br>
+                    เบอร์โทร: 099-217-9054<br>
+                </p>
+            </div>
+            <div class="glass-card fade-in" style="margin-bottom: 2rem;">
+                <p
+                    style="font-size: 1.5rem; text-align: left; color: var(--text-primary); font-weight: bold; margin-bottom: 1rem;">
+                    การศึกษา
+                </p>
+                <p style="font-size: 1.1rem; text-align: left; color: var(--text-secondary); margin-bottom: 0;">
+                    ระดับปริญญาตรี: มหาวิทยาลัยกรุงเทพ<br>
+                    คณะ: เทคโนโลยีสารสนเทศ<br>
+                    สาขา: วิทยาการคอมพิวเตอร์<br>
+                    GPA: 3.18<br>
+                </p>
+            </div>
+            <div class="glass-card fade-in" style="margin-bottom: 2rem;">
+                <p
+                    style="font-size: 1.5rem; text-align: left; color: var(--text-primary); font-weight: bold; margin-bottom: 1rem;">
+                    ความสามารถ
+                </p>
+                <p style="font-size: 1.1rem; text-align: left; color: var(--text-secondary); margin-bottom: 0;">
+                    Python -> Intermediate<br>
+                    JavaScript -> Intermediate<br>
+                    C++ -> Beginner to Intermediate<br>
+                    HTML/CSS -> Intermediate<br>
+                    MySQL -> Intermediate<br>
+                    Figma -> Intermediate<br>
+                    Adobe Photoshop -> Intermediate<br>
+                    MS Office -> Intermediate<br>
+                    Vegas Pro -> Advanced<br>
+                </p>
+            </div>
+        </div>
+    </section>
+
+    <section id="services" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Services</h2>
+            <div class="services-grid">
+                <div class="glass-card service-card fade-in">
+                    <div class="service-icon">🎨</div>
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary);">UI/UX Design</h3>
+                    <p style="color: var(--text-secondary);">Creating intuitive and beautiful user experiences with
+                        modern design principles</p>
+                </div>
+                <div class="glass-card service-card fade-in">
+                    <div class="service-icon">💻</div>
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Web Development</h3>
+                    <p style="color: var(--text-secondary);">Building responsive and performant web applications using
+                        cutting-edge technologies</p>
+                </div>
+                <div class="glass-card service-card fade-in">
+                    <div class="service-icon">📱</div>
+                    <h3 style="margin-bottom: 1rem; color: var(--text-primary);">Mobile App Development</h3>
+                    <p style="color: var(--text-secondary);">Creating functional and user-friendly mobile applications
+                        with C# and modern design practices,
+                        focusing on both usability and performance.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="Work" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">My work & Certificate</h2>
+            <div class="portfolio-grid">
+
+                <div class="portfolio-card fade-in">
+                    <a href="https://www.figma.com/design/ONQvDZUgEVKH428NJVyO2W/Untitled?node-id=1-3" target="_blank"
+                        style="text-decoration:none; color:inherit; display:block; height:100%;">
+                        <img src="img/p1.png" alt="Senior Project 2024–2025"
+                            style="width:100%; height:100%; object-fit:cover; border-radius:20px 20px 0 0;">
+                        <div class="portfolio-content">
+                            <h3 style="margin-bottom: 0.5rem;">Senior Project 2024–2025 (Expected)</h3>
+                            <p style="color: var(--text-secondary);">พัฒนาเว็บไซต์สูตรอาหารโดยใช้ระบบแท็ก</p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-card fade-in">
+                    <a href="https://www.figma.com/design/Wea2jS9Zhx3SgPnPRXD4fQ/Moblie-Bragon-dall?node-id=0-1&p=f&t=OOksOG4oRO1B2UeB-0"
+                        target="_blank" style="text-decoration:none; color:inherit; display:block; height:100%;">
+                        <img src="img/p2.png" alt="Ur Fight"
+                            style="width:100%; height:100%; object-fit:cover; border-radius:20px 20px 0 0;">
+                        <div class="portfolio-content">
+                            <h3 style="margin-bottom: 0.5rem;">Ur Fight</h3>
+                            <p style="color: var(--text-secondary);">เกมมือถือแนว Fighting ผ่านด่านและอัพสกิลไปเรื่อยๆ
+                            </p>
+                        </div>
+                    </a>
+                </div>
+                <div class="portfolio-card fade-in">
+                    <a href="https://www.figma.com/design/UFED5CK9NDKRi8n6beaWf1/IT_midterm?node-id=0-1&p=f&t=srFMVWSsYyM0R1XM-0"
+                        target="_blank" style="text-decoration:none; color:inherit; display:block; height:100%;">
+                        <img src="img/p3.png" alt="Piggies Bank"
+                            style="width:100%; height:100%; object-fit:cover; border-radius:20px 20px 0 0;">
+                        <div class="portfolio-content">
+                            <h3 style="margin-bottom: 0.5rem;">Piggies Bank</h3>
+                            <p style="color: var(--text-secondary);">
+                                แอปพลิเคชันการจัดการเงินและบันทึกรายรับรายจ่ายส่วนบุคคล
+                            </p>
+                        </div>
+                    </a>
+                </div>
+
+                <div style="width:100%; text-align:center; margin-top:30px">
+                    <img src="img/cer1.png" width="200" style="cursor:pointer"
+                        onclick="document.getElementById('popup').style.display='block'">
+                </div>
+
+                <div id="popup"
+                    style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);text-align:center"
+                    onclick="this.style.display='none'">
+                    <img src="img/cer1.png" style="max-width:90%;max-height:80%;margin-top:5%">
+                </div>
+
+                <div style="width:100%; text-align:center; margin-top:30px">
+                    <img src="img/cer2.png" width="200" style="cursor:pointer"
+                        onclick="document.getElementById('popup2').style.display='block'">
+                </div>
+
+                <div id="popup2"
+                    style="display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);text-align:center"
+                    onclick="this.style.display='none'">
+                    <img src="img/cer2.png" style="max-width:90%;max-height:80%;margin-top:5%">
+                </div>
+
+            </div>
+        </div>
+    </section>
+
+
+    <section id="contact" class="section">
+        <div class="container">
+            <h2 class="section-title fade-in">Get In Touch</h2>
+            <div class="contact-form fade-in">
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Your Name" required>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control" placeholder="Your Email" required>
+                    </div>
+                    <div class="form-group">
+                        <textarea class="form-control" placeholder="Your Message" required></textarea>
+                    </div>
+                    <button type="submit" class="btn-submit">Send Message</button>
+                </form>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="container">
+            <p style="color: var(--text-secondary);">&copy; 2025 Modern Portfolio. Crafted with passion.</p>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Navbar scroll effect
+        window.addEventListener('scroll', () => {
+            const navbar = document.querySelector('.navbar');
+            if (window.scrollY > 100) {
+                navbar.classList.add('scrolled');
+            } else {
+                navbar.classList.remove('scrolled');
+            }
+        });
+
+        // Scroll progress indicator
+        window.addEventListener('scroll', () => {
+            const scrollProgress = document.querySelector('.scroll-progress');
+            const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+            const scrolled = window.scrollY;
+            const progress = (scrolled / scrollable) * 100;
+            scrollProgress.style.width = progress + '%';
+        });
+
+        // Fade in animation on scroll
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.classList.add('visible');
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.fade-in').forEach(el => {
+            observer.observe(el);
+        });
+
+        // Interactive particles on click
+        document.addEventListener('click', (e) => {
+            if (e.target.closest('.btn-main, .btn-submit')) {
+                createParticles(e.clientX, e.clientY);
+            }
+        });
+
+        function createParticles(x, y) {
+            for (let i = 0; i < 6; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = x + 'px';
+                particle.style.top = y + 'px';
+                particle.style.width = Math.random() * 8 + 4 + 'px';
+                particle.style.height = particle.style.width;
+                document.body.appendChild(particle);
+
+                setTimeout(() => {
+                    particle.remove();
+                }, 3000);
+            }
+        }
+
+        // Form submission animation
+        document.querySelector('form').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const btn = document.querySelector('.btn-submit');
+            btn.textContent = 'Sending...';
+            btn.style.background = 'linear-gradient(45deg, var(--accent), var(--primary))';
+
+            setTimeout(() => {
+                btn.textContent = 'Message Sent!';
+                setTimeout(() => {
+                    btn.textContent = 'Send Message';
+                    btn.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
+                }, 2000);
+            }, 1000);
+        });
+    </script>
+</body>
+
+</html>

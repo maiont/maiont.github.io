@@ -1,0 +1,178 @@
+/* ส่วนพื้นหลังและฟอนต์ของเว็บไซต์ */
+body {
+    font-family: 'Montserrat', sans-serif;
+    margin: 0;
+    background: #f4f7fa;
+    color: #2c3e50;
+}
+
+/* ส่วน Navbar (ใส่ชื่อเว็บไซต์/แบรนด์ และเมนู) */
+/* # ใส่ชื่อเว็บไซต์/แบรนด์ที่ .navbar-brand */
+/* # ใส่ลิงก์เมนูที่ .navbar-menu a */
+.navbar {
+    background: #4a90e2;
+    color: #fff;
+    padding: 1rem 0;
+}
+.navbar .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.navbar-brand {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+    text-decoration: none;
+}
+.navbar-menu {
+    list-style: none;
+    display: flex;
+    gap: 1.5rem;
+    margin: 0;
+    padding: 0;
+}
+.navbar-menu a {
+    color: #fff;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+/* ส่วน Header (ใส่ชื่อ, รูป, ข้อความแนะนำตัว, ปุ่ม) */
+/* # ใส่ชื่อหรือข้อความหลักที่ .header h1 */
+/* # ใส่ข้อความแนะนำตัวที่ .header p */
+/* # ใส่ปุ่มหลักที่ .btn-main */
+/* # ใส่รูปภาพใน header (ถ้ามี) ใน HTML */
+.header {
+    background: #eaf6fb;
+    color: #2c3e50;
+    padding: 6rem 0 4rem 0;
+    text-align: center;
+}
+.header h1 {
+    font-size: 2.5rem;
+    margin-bottom: 1rem;
+}
+.header p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+}
+.btn-main {
+    background: #4a90e2;
+    color: #fff;
+    padding: 0.75rem 2rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    text-decoration: none;
+    font-weight: bold;
+    box-shadow: 0 4px 12px rgba(74,144,226,0.15);
+    transition: background 0.3s;
+}
+.btn-main:hover {
+    background: #357ab8;
+}
+
+/* ส่วน About, Services, Portfolio, Contact */
+/* # ใส่หัวข้อแต่ละส่วนที่ .about h2, .services h2, .portfolio h2, .contact h2 */
+/* # ใส่รายละเอียดเกี่ยวกับตัวเองที่ .about */
+/* # ใส่บริการที่ .service-item */
+/* # ใส่ผลงานที่ .portfolio-item */
+/* # ใส่ฟอร์มติดต่อที่ .contact form */
+.about, .services, .portfolio, .contact {
+    padding: 4rem 0;
+    background: #fff;
+}
+.about h2, .services h2, .portfolio h2, .contact h2 {
+    color: #357ab8;
+    margin-bottom: 2rem;
+}
+.service-list {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+.service-item {
+    background: #e3eaf3;
+    color: #2c3e50;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(74,144,226,0.08);
+    font-weight: 500;
+    min-width: 150px;
+    text-align: center;
+}
+.portfolio-list {
+    display: flex;
+    gap: 2rem;
+    justify-content: center;
+}
+.portfolio-item {
+    background: #f4f7fa;
+    color: #2c3e50;
+    padding: 2rem;
+    border-radius: 16px;
+    box-shadow: 0 2px 8px rgba(44,62,80,0.06);
+    font-weight: 500;
+    min-width: 150px;
+    text-align: center;
+}
+
+/* ส่วน Contact (ฟอร์มติดต่อ) */
+/* # ใส่ input ข้อมูลติดต่อ เช่น ชื่อ อีเมล ข้อความ ใน .contact input, .contact textarea */
+/* # ใส่ปุ่มส่งใน .contact button */
+.contact form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto;
+}
+.contact input, .contact textarea {
+    padding: 0.75rem;
+    border: 1px solid #4a90e2;
+    border-radius: 8px;
+    font-size: 1rem;
+}
+.contact button {
+    background: #357ab8;
+    color: #fff;
+    border: none;
+    padding: 0.75rem;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+.contact button:hover {
+    background: #4a90e2;
+}
+
+/* ส่วน Footer (ใส่ข้อความลิขสิทธิ์หรือข้อมูลติดต่อ) */
+/* # ใส่ข้อความท้ายเว็บที่ .footer */
+.footer {
+    background: #2c3e50;
+    color: #fff;
+    text-align: center;
+    padding: 2rem 0 1rem 0;
+    font-size: 1rem;
+}
+
+/* ส่วน Container (จัดตำแหน่งเนื้อหา) */
+.container {
+    width: 90%;
+    max-width: 1100px;
+    margin: 0 auto;
+}
+
+/* Responsive สำหรับมือถือ */
+@media (max-width: 768px) {
+    .service-list, .portfolio-list {
+        flex-direction: column;
+        gap: 1rem;
+    }
+    .header {
+        padding: 4rem 0 2rem 0;
+    }
+}
