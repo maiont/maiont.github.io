@@ -720,7 +720,7 @@
         <div class="container">
             <h2 class="section-title fade-in">Get In Touch</h2>
             <div class="contact-form fade-in">
-                <form action="https://formspree.io/f/xwvzoodr" method="POST">
+                <form action="https://formspree.io/f/xaqkojek" method="POST">
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                     </div>
@@ -815,18 +815,9 @@
 
         // Form submission animation
         document.querySelector('form').addEventListener('submit', (e) => {
-            e.preventDefault();
             const btn = document.querySelector('.btn-submit');
             btn.textContent = 'Sending...';
             btn.style.background = 'linear-gradient(45deg, var(--accent), var(--primary))';
-
-            setTimeout(() => {
-                btn.textContent = 'Message Sent!';
-                setTimeout(() => {
-                    btn.textContent = 'Send Message';
-                    btn.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
-                }, 2000);
-            }, 1000);
         });
     </script>
 </body>
