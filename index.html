@@ -831,19 +831,18 @@
             e.preventDefault();
             const btn = document.querySelector('.btn-submit');
             btn.textContent = 'Sending...';
-            btn.disabled = true;
+            btn.style.background = 'linear-gradient(45deg, var(--accent), var(--primary))';
 
             try {
                 await emailjs.sendForm('service_ppdmw3u', 'template_4o52lhx', '#contact-form');
-                document.getElementById('contact-form').reset();
                 btn.textContent = 'Message Sent!';
-                btn.disabled = false;
+                document.getElementById('contact-form').reset();
                 setTimeout(() => {
                     btn.textContent = 'Send Message';
-                }, 3000);
+                    btn.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
+                }, 2000);
             } catch (error) {
                 btn.textContent = 'Error! Try again';
-                btn.disabled = false;
                 console.error(error);
                 setTimeout(() => {
                     btn.textContent = 'Send Message';
