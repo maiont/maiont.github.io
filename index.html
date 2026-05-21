@@ -720,7 +720,7 @@
         <div class="container">
             <h2 class="section-title fade-in">Get In Touch</h2>
             <div class="contact-form fade-in">
-                <form id="contact-form">
+                <form action="https://formspree.io/f/xaqkojek" method="POST">
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                     </div>
@@ -742,10 +742,7 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
     <script>
-        emailjs.init('TA41vfqu9pWCHiItj');
-
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
@@ -816,30 +813,21 @@
             }
         }
 
-        // Form submission with EmailJS
-        document.getElementById('contact-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
+        // Form submission animation
+        document.querySelector('form').addEventListener('submit', (e) => {
             const btn = document.querySelector('.btn-submit');
             btn.textContent = 'Sending...';
             btn.style.background = 'linear-gradient(45deg, var(--accent), var(--primary))';
 
-            try {
-                await emailjs.sendForm('service_ppdmw3u', 'template_4o52lhx', '#contact-form');
+            setTimeout(() => {
                 btn.textContent = 'Message Sent!';
-                document.getElementById('contact-form').reset();
                 setTimeout(() => {
                     btn.textContent = 'Send Message';
                     btn.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
                 }, 2000);
-            } catch (error) {
-                btn.textContent = 'Error! Try again';
-                console.error(error);
-                setTimeout(() => {
-                    btn.textContent = 'Send Message';
-                    btn.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
-                }, 2000);
-            }
+            }, 1000);
         });
+    </script>
     </script>
 </body>
 
