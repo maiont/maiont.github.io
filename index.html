@@ -744,7 +744,11 @@
 
     <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
     <script>
-        emailjs.init('TA41vfqu9pWCHiItj');
+        if (window.emailjs && typeof emailjs.init === 'function') {
+            emailjs.init('TA41vfqu9pWCHiItj');
+        } else {
+            console.warn('EmailJS not loaded; continuing without email features.');
+        }
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
