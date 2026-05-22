@@ -720,12 +720,15 @@
         <div class="container">
             <h2 class="section-title fade-in">Get In Touch</h2>
             <div class="contact-form fade-in">
-                <form id="contact-form">
+                <!-- Replace the action URL with your Formspree endpoint -->
+                <form id="contact-form" action="https://formspree.io/forms/xaqkojek/" method="POST">
+                    <input type="hidden" name="_subject" value="New contact from portfolio">
                     <div class="form-group">
                         <input type="text" name="name" class="form-control" placeholder="Your Name" required>
                     </div>
                     <div class="form-group">
-                        <input type="email" name="email" class="form-control" placeholder="Your Email" required>
+                        <!-- Formspree uses _replyto for reply address -->
+                        <input type="email" name="_replyto" class="form-control" placeholder="Your Email" required>
                     </div>
                     <div class="form-group">
                         <textarea name="message" class="form-control" placeholder="Your Message" required></textarea>
@@ -742,13 +745,7 @@
         </div>
     </footer>
 
-    <script src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/index.min.js"></script>
     <script>
-        if (window.emailjs && typeof window.emailjs.init === 'function') {
-            window.emailjs.init('TA41vfqu9pWCHiItj');
-        } else {
-            console.warn('EmailJS not loaded; continuing without email features.');
-        }
 
         // Smooth scrolling
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
@@ -820,79 +817,13 @@
             }
         }
 
-        // Form submission with EmailJS (guarded) + mailto fallback
-        document.getElementById('contact-form').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const form = e.target;
+        // Formspree: show sending state and allow native form POST
+        document.getElementById('contact-form').addEventListener('submit', function (e) {
             const btn = document.querySelector('.btn-submit');
-            btn.disabled = true;
             btn.textContent = 'Sending...';
+            btn.disabled = true;
             btn.style.background = 'linear-gradient(45deg, var(--accent), var(--primary))';
-
-            const emailjsAvailable = window.emailjs && typeof window.emailjs.sendForm === 'function';
-
-            if (!emailjsAvailable) {
-                // Fallback: open user's mail client with form data
-                const name = form.name.value || 'No name';
-                const email = form.email.value || '';
-                const message = form.message.value || '';
-                const subject = encodeURIComponent(`Portfolio message from ${name}`);
-                const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-
-                btn.textContent = 'Open Mail App';
-                btn.disabled = false;
-                btn.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
-
-                // Use setTimeout briefly so user sees feedback before mail client opens
-                setTimeout(() => {
-                    window.location.href = `mailto:jirawat.khut@bumail.net?subject=${subject}&body=${body}`;
-                }, 250);
-
-                return;
-            }
-
-            try {
-                await emailjs.sendForm('service_ppdmw3u', 'template_4o52lhx', '#contact-form');
-                btn.textContent = 'Message Sent!';
-                form.reset();
-                setTimeout(() => {
-                    btn.textContent = 'Send Message';
-                    btn.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
-                }, 2000);
-            } catch (error) {
-                console.error('EmailJS send error:', error);
-                btn.textContent = 'Error! Try again';
-
-                // Try to extract a useful message from different error shapes
-                let errMsg = 'Unknown error';
-                if (error) {
-                    if (error.text) errMsg = error.text;
-                    else if (error.statusText) errMsg = error.statusText;
-                    else if (error.message) errMsg = error.message;
-                }
-
-                // Ask user if they want to open mail client as a fallback
-                try {
-                    const openMail = confirm(`ส่งอีเมลไม่สำเร็จ: ${errMsg}\nต้องการเปิดโปรแกรมอีเมลเพื่อลองส่งด้วยตนเองหรือไม่?`);
-                    if (openMail) {
-                        const name = form.name.value || 'No name';
-                        const email = form.email.value || '';
-                        const message = form.message.value || '';
-                        const subject = encodeURIComponent(`Portfolio message from ${name}`);
-                        const body = encodeURIComponent(`Name: ${name}\nEmail: ${email}\n\n${message}`);
-                        window.location.href = `mailto:jirawat.khut@bumail.net?subject=${subject}&body=${body}`;
-                    }
-                } catch (uiErr) {
-                    console.error('Error showing fallback confirm:', uiErr);
-                }
-
-                setTimeout(() => {
-                    btn.textContent = 'Send Message';
-                    btn.style.background = 'linear-gradient(45deg, var(--primary), var(--secondary))';
-                }, 2000);
-            } finally {
-                btn.disabled = false;
-            }
+            // allow normal form submission to Formspree (no preventDefault)
         });
     </script>
 </body>
