@@ -820,6 +820,12 @@
         // Formspree: show sending state and allow native form POST
         document.getElementById('contact-form').addEventListener('submit', function (e) {
             const btn = document.querySelector('.btn-submit');
+            // sanitize inputs to avoid multi-line values that change table row heights
+            const form = e.target;
+            if (form.name && form.name.value) form.name.value = form.name.value.replace(/\s+/g, ' ').trim();
+            if (form._replyto && form._replyto.value) form._replyto.value = form._replyto.value.replace(/\s+/g, ' ').trim();
+            if (form.message && form.message.value) form.message.value = form.message.value.replace(/\s+/g, ' ').trim();
+
             btn.textContent = 'Sending...';
             btn.disabled = true;
             btn.style.background = 'linear-gradient(45deg, var(--accent), var(--primary))';
